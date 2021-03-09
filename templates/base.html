@@ -1,0 +1,15 @@
+<html>
+    <head>
+		{% if title%}
+        <title>{{ title }}</title>
+		 {% else %}
+        <title>Control Pannel undefined</title>
+		{% endif %}
+    </head>
+    <body>
+		<div> Nav:<a href="/index">Start Page </a></div>
+		
+		<hr>
+		{% block content %}{% endblock %}
+    </body>
+</html>
