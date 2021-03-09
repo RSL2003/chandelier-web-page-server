@@ -1,12 +1,12 @@
 <html>
-    <head>
+    <head><!--Check if the title exsists, if not it will use the defuault undefined-->
 		{% if title%}
         <title>{{ title }}</title>
 		 {% else %}
         <title>Control Pannel undefined</title>
 		{% endif %}
     </head>
-    <body>
+    <body><!--navigation bar-->
 		<div> Nav:<a href="/index">Start Page </a></div>
 		
 		<hr>
