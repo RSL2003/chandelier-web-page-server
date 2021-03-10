@@ -1,18 +1,27 @@
 /* CSS Document */
-h1 {
-	background-color: #1E1A1A;
-	margin: auto;
-}
 .center {
   margin: auto;
   width: 50%;
   border: 3px solid #55E4FF;
   padding: 10px;
 }
+
 log {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333;
+  float: left;
+}
+
+log div {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+log div a:hover {
+  background-color: mediumpurple;
+}
+.active {
+  background-color: #87CEFA;
 }
