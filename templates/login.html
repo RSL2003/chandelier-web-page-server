@@ -1,7 +1,17 @@
 {% extends "base.html" %}<!--adds the navigation bar-->
 {% block content %}<!--where the page content starts-->
- <h1> This is {{ page.pagename}}
-<div>
-  <p>Login will be added later</p>
-</div></h1>
+    <h1>Sign In</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.username.label }}<br>
+            {{ form.username(size=32) }}
+        </p>
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}
+        </p>
+        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+        <p>{{ form.submit() }}</p>
+    </form>
 {% endblock %}<!--page content ends no more can be added past here-->
