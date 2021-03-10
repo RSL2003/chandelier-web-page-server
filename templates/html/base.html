@@ -1,3 +1,4 @@
+<!doctype html>
 <html>
 <head><!--Check if the title exsists, if not it will use the defuault undefined-->
     {% if title %}
@@ -6,12 +7,13 @@
         <title>Control Pannel undefined</title>
     {% endif %}
 	 <link rel="stylesheet" href="{{ url_for('static', filename='styles/base.css') }}">
-</head>
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+	</head>
 <body><!--navigation bar-->
 <div>
 	<La>Panel</La>
-    <ul>
-        <li><a href="{{ url_for('index') }}">Start Page </a></li>
+<ul>
+    <li><a href="{{ url_for('index') }}">Start Page </a></li>
         <li><a href="{{ url_for('login') }}">Login</a></li>
     </ul>
 </div>

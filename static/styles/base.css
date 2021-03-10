@@ -28,10 +28,10 @@ li a:hover {
 }
 /* Add a gray right border to all list items, except the last item (last-child) */
 li {
-  border-right: 1px groove #ff00ff;
+  border-right: 1px groove red;
 }
 body {
-    background-color: dimgray;
+    background-color: #242424;
     color: antiquewhite;
 }
 
