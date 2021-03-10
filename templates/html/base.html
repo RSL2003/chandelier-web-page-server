@@ -1,4 +1,5 @@
 <html>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/base.css') }}">
     <head><!--Check if the title exsists, if not it will use the defuault undefined-->
 		{% if title%}
         <title>{{ title }}</title>
@@ -7,9 +8,23 @@
 		{% endif %}
     </head>
     <body><!--navigation bar-->
-		<div> Nav:<a href="/index">Start Page </a><a href="/login">login</a></div>
+		<div> Nav:<a href="{{ url_for('index')}}">Start Page </a><a href="{{ url_for('login')}}">;login</a></div>
 		
-		<hr>
+		
+		
+		
+		
+		
+    <hr>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
 		{% block content %}{% endblock %}
-    </body>
+</body>
 </html>
