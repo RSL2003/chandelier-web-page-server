@@ -13,14 +13,14 @@ app.config.from_object(Config)
 @app.route('/index')
 def index():
     page = {'pagename': 'Start Page'}
-    return render_template('index.html', title='home', page=page)
+    return render_template('/html/index.html', title='home', page=page)
 
 
 @app.route('/login')
 def login():
     page = {'pagename': 'login'}
     form = LoginForm()
-    return render_template('login.html', title='Login', page=page, form=form)
+    return render_template('/html/login.html', title='Login', page=page, form=form)
 
 
 if __name__ == '__main__':
