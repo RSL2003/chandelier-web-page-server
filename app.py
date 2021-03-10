@@ -1,4 +1,4 @@
-from forms import LoginForm # issues with this import still
+from forms import LoginForm
 from flask import Flask, render_template
 
 
@@ -16,10 +16,10 @@ def index():
     return render_template('index.html', title='home', page=page)
 
 
-@app.route('/login')   # still has issues with loading
+@app.route('/login')
 def login():
     page = {'pagename': 'login'}
-    form = LoginForm
+    form = LoginForm()
     return render_template('login.html', title='Login', page=page, form=form)
 
 
