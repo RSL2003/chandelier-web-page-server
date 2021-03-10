@@ -1,15 +1,49 @@
+La { text-align: right;
+	list-style-type: none;
+	font-size-adjust: auto;
+	margin: 0;
+	padding: 3;
+	overflow: hidden;
+	background-color:#333;
+	color: antiquewhite;
+	
+	
+	
+}
 ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
 }
 
 li {
-    float: left;
+  float: left;
 }
 
-a {
-    display: block;
-    padding: 8px;
-    background-color: #dddddd;
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+  background-color: mediumpurple;
+}
+.active {
+  background-color: #87CEFA;
+}
+/* Add a gray right border to all list items, except the last item (last-child) */
+li {
+  border-right: 1px groove #ff00ff;
+}
+body {
+	background-color:dimgray;
+	color:antiquewhite;
+	
+	
 }

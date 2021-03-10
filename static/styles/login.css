@@ -1,0 +1,11 @@
+/* CSS Document */
+body{
+	background-color: #1E1A1A;
+	margin: auto;
+}
+.center {
+  margin: auto;
+  width: 50%;
+  border: 3px solid #55E4FF;
+  padding: 10px;
+}

@@ -1,0 +1,18 @@
+/* CSS Document */
+h1 {
+	background-color: #1E1A1A;
+	margin: auto;
+}
+.center {
+  margin: auto;
+  width: 50%;
+  border: 3px solid #55E4FF;
+  padding: 10px;
+}
+log {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}

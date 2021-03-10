@@ -1,6 +1,9 @@
 {% extends "html/base.html" %}<!--adds the navigation bar-->
 {% block content %}<!--where the page content starts-->
-    <h1>Sign In</h1>
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/login.css') }}"> 
+<body>
+<h1>Sign In</h1>
+	<div>
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
         <p>
@@ -20,4 +23,6 @@
         <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
         <p>{{ form.submit() }}</p>
     </form>
+	</div>
+</body>
 {% endblock %}<!--page content ends no more can be added past here-->
