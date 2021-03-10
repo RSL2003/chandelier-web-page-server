@@ -1,30 +1,30 @@
 <html>
-    <head><!--Check if the title exsists, if not it will use the defuault undefined-->
-		{% if title%}
+<head><!--Check if the title exsists, if not it will use the defuault undefined-->
+    {% if title %}
         <title>{{ title }}</title>
-		    <link rel="stylesheet" href="{{ url_for('static', filename='styles/base.css') }}">
-		 {% else %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/base.css') }}">
+    {% else %}
         <title>Control Pannel undefined</title>
-		{% endif %}
-    </head>
-    <body><!--navigation bar-->
-		<div> 
-			Nav:
-			<ul>
-			<li><a href="{{ url_for('index')}}">Start Page </a></li> 
-			<li><a href="{{ url_for('login')}}">Login</a></li>
-			</ul>
-		</div>
-    <hr>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
+    {% endif %}
+</head>
+<body><!--navigation bar-->
+<div>
+    Nav:
+    <ul>
+        <li><a href="{{ url_for('index') }}">Start Page </a></li>
+        <li><a href="{{ url_for('login') }}">Login</a></li>
+    </ul>
+</div>
+<hr>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
         <ul>
             {% for message in messages %}
-            <li>{{ message }}</li>
+                <li>{{ message }}</li>
             {% endfor %}
         </ul>
-        {% endif %}
-        {% endwith %}
-		{% block content %}{% endblock %}
+    {% endif %}
+{% endwith %}
+{% block content %}{% endblock %}
 </body>
 </html>

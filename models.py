@@ -1,7 +1,6 @@
 # Not going to be used in final version
 
 
-
 from app import db
 
 

@@ -11,6 +11,7 @@ app.config.from_object(Config)
 app.config.from_object(Config)
 bootstrap = Bootstrap(app)
 
+
 # define your app routes
 @app.route('/')
 @app.route('/index')
