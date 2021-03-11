@@ -19,6 +19,7 @@ def index():
     page = {'pagename': 'Start Page'}
     return render_template('/html/index.html', title='home', page=page)
 
+
 @app.route('/panel')
 def panel():
     """
@@ -34,33 +35,37 @@ def panel():
         isAdmin = False
     return render_template('/html/panel.html', isAdmin=isAdmin)
 
+
 @app.route('/userAdmin', methods=['GET', 'POST'])
 def userAdmin():
     """
     User administration panel for admins to see existing users and create new ones
     """
-    # Create a list of all existing users to display to admin
-    users = open('users.txt', 'r')
-    lines = users.readlines()
-    list_of_users = []
-    for line in lines:
-        username, password, rank = line.split(".")
-        list_of_users.append({"username": username,
-                    "password": password,
-                    "rank": rank
-                    })
-    UserForm = NewUser()
-    if UserForm.validate_on_submit():
-        username = UserForm.username.data
-        password = UserForm.password.data
-        rank = UserForm.Rank.data
-        newUserString = f'{username}.{password}.{rank}\n'
-        # Open a connection to users.txt
-        file = open('users.txt', 'a')
-        file.write(newUserString)
-    
-    return render_template('/html/userAdmin.html', users=list_of_users, form=UserForm)
+    # yuval forgot to add a check
+    if (session['rank'] == "admin\n"):
+        # Create a list of all existing users to display to admin
+        users = open('users.txt', 'r')
+        lines = users.readlines()
+        list_of_users = []
+        for line in lines:
+            username, password, rank = line.split(".")
+            list_of_users.append({"username": username,
+                                  "password": password,
+                                  "rank": rank
+                                  })
+        UserForm = NewUser()
+        if UserForm.validate_on_submit():
+            username = UserForm.username.data
+            password = UserForm.password.data
+            rank = UserForm.Rank.data
+            newUserString = f'{username}.{password}.{rank}\n'
+            # Open a connection to users.txt
+            file = open('users.txt', 'a')
+            file.write(newUserString)
 
+        return render_template('/html/userAdmin.html', users=list_of_users, form=UserForm)
+    else:
+        return render_template('/html/error.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -83,7 +88,7 @@ def login():
         # Loop through every line in the users file and find if the user exists or not
         for line in lines:
             saved_username, saved_password, saved_rank = line.split(".")
-            if (username==saved_username and password==saved_password):
+            if (username == saved_username and password == saved_password):
                 # Save the rank and username of the user into a session item
                 session['rank'] = saved_rank
                 session['username'] = username
@@ -93,8 +98,7 @@ def login():
                 continue
         # If user doesn't input true values send him back to the index page
         return redirect(url_for('index'))
-    
-        
+
     return render_template('/html/login.html', title='Login', page=page, form=form)
 
 
