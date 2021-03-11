@@ -1,4 +1,5 @@
 <!doctype html>
+{% extends "html/base.html" %}<!--adds the navigation bar-->
 {% block content %}<!--where the page content starts-->
 <html>
 <head>
@@ -7,7 +8,17 @@
 </head>
 
 <body>
-    <h1>Panel for user {{ name }}</h1>
+    {% if isAdmin == true %}
+    <table>
+        <thead><tr><th>Username</th><th>Password</th><th>Rank</th></tr></thead>
+        <tbody>
+        {% for n in users %}
+        <tr><td>{{n.username}}</td><td>{{n.password}}</td><td>{{n.rank}}</td></tr>
+        {% endfor %}
+        </tbody>
+        </table>
+    {% endif %}
+
 </body>
 </html>
 {% endblock %}<!--page content ends no more can be added past here-->
