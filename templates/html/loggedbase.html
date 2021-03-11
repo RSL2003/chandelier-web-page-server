@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head><!--Check if the title exsists, if not it will use the defuault undefined-->
+    {% if title %}
+        <title>{{ title }}</title>
+    {% else %}
+        <title>Control Pannel undefined</title>
+    {% endif %}
+	 <link rel="stylesheet" href="{{ url_for('static', filename='styles/loggedbase.css') }}">
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+	</head>
+<body><!--navigation bar-->
+<div>
+	<La>Panel</La>
+<ul>
+    <lu><a href="{{ url_for('index') }}">Log out / Start page</a></lu>
+        <li><a href="{{ url_for('panel') }}">Main Panel</a></li>
+        <li><a href="{{ url_for('userAdmin') }}">User Management</a></li>
+    </ul>
+</div>
+<hr>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+{% block content %}{% endblock %}
+</body>
+</html>

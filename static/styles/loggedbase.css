@@ -1,0 +1,71 @@
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+    border-radius: 0px 15px 15px 15px;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+  background-color: mediumpurple;
+}
+.active {
+  background-color: #87CEFA;
+}
+/* Add a gray right border to all list items, except the last item (last-child) */
+li {
+  border-right: 1px groove red;
+}
+lu {
+  float: right;
+}
+
+lu a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+lu a:hover {
+  background-color: mediumpurple;
+}
+.active {
+  background-color: #87CEFA;
+}
+/* Add a gray right border to all list items, except the last item (last-child) */
+body {
+    background-color: #242424;
+    color: antiquewhite;
+}
+
+La { text-align: right;
+	list-style-type: none;
+	font-size-adjust: auto;
+	margin: 0;
+	padding: 3;
+	overflow: hidden;
+	background-color:#333;
+	color: antiquewhite;
+	  border-radius: 5px 5px 0px 0px;
+	
+	
+}
+
+	
