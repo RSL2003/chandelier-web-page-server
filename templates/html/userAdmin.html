@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+{% block content %}<!--where the page content starts-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User administration</title>
+</head>
+<body>
+    <h1>User Control</h1>
+    <table>
+        <thead><tr><th>Username</th><th>Password</th><th>Rank</th></tr></thead>
+        <tbody>
+        {% for n in users %}
+        <tr><td>{{n.username}}</td><td>{{n.password}}</td><td>{{n.rank}}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.username.label }}<br>
+            {{ form.username(size=32) }}<br>
+            {% for error in form.username.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}<br>
+            {% for error in form.password.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.Rank.label }}<br>
+            {{ form.Rank}}<br>
+            {% for error in form.Rank.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+
+</body>
+</html>
+{% endblock %}<!--page content ends no more can be added past here-->
+</body>
+</html>

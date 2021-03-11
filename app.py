@@ -1,4 +1,4 @@
-from forms import LoginForm
+from forms import *
 from flask import Flask, render_template, session
 from flask import render_template, flash, redirect, url_for
 # from flask_sqlalchemy import SQLAlchemy  # prob wont use in final version
@@ -21,7 +21,25 @@ def index():
 
 @app.route('/panel')
 def panel():
-    # Show a list of all users
+    """
+    TODO:
+    Create the light control panel
+    Control Panel for the light. 
+    Shows admin the option to go into user admin panel.
+    """
+    # Check if user is admin
+    if (session['rank'] == "admin\n"):
+        isAdmin = True
+    else:
+        isAdmin = False
+    return render_template('/html/panel.html', isAdmin=isAdmin)
+
+@app.route('/userAdmin', methods=['GET', 'POST'])
+def userAdmin():
+    """
+    User administration panel for admins to see existing users and create new ones
+    """
+    # Create a list of all existing users to display to admin
     users = open('users.txt', 'r')
     lines = users.readlines()
     list_of_users = []
@@ -31,12 +49,19 @@ def panel():
                     "password": password,
                     "rank": rank
                     })
-    print(list_of_users[1]["username"])
-    if (session['rank'] == "admin\n"):
-        isAdmin = True
-    else:
-        isAdmin = False
-    return render_template('/html/panel.html', isAdmin=isAdmin, users=list_of_users)
+    UserForm = NewUser()
+    if UserForm.validate_on_submit():
+        username = UserForm.username.data
+        password = UserForm.password.data
+        rank = UserForm.Rank.data
+        newUserString = f'{username}.{password}.{rank}\n'
+        # Open a connection to users.txt
+        file = open('users.txt', 'a')
+        file.write(newUserString)
+    
+    return render_template('/html/userAdmin.html', users=list_of_users, form=UserForm)
+
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

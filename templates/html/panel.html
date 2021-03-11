@@ -1,24 +1,20 @@
-<!doctype html>
-{% extends "html/base.html" %}<!--adds the navigation bar-->
+<!DOCTYPE html>
 {% block content %}<!--where the page content starts-->
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<title></title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel</title>
 </head>
-
 <body>
+    <h1>Control panel</h1>
     {% if isAdmin == true %}
-    <table>
-        <thead><tr><th>Username</th><th>Password</th><th>Rank</th></tr></thead>
-        <tbody>
-        {% for n in users %}
-        <tr><td>{{n.username}}</td><td>{{n.password}}</td><td>{{n.rank}}</td></tr>
-        {% endfor %}
-        </tbody>
-        </table>
+    <h1><a href="{{ url_for('userAdmin') }}">User Control </a></h1>
     {% endif %}
 
 </body>
 </html>
 {% endblock %}<!--page content ends no more can be added past here-->
+</body>
+</html>
