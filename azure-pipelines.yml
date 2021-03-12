@@ -34,6 +34,7 @@ steps:
   inputs:
     script: 'python app.py'
     failOnStderr: true
+  timeoutInMinutes: 1
     
 - task: PublishTestResults@2
   condition: succeededOrFailed()
