@@ -30,8 +30,10 @@ steps:
     pip install -r requirements.txt
   displayName: 'Install dependencies'
   
-
-
+- task: CmdLine@2
+  inputs:
+    script: 'python app.py'
+    failOnStderr: true
     
 - task: PublishTestResults@2
   condition: succeededOrFailed()
