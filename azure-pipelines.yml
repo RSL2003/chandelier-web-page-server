@@ -22,9 +22,6 @@ strategy:
       python.version: '3.8'
 
 steps:
-- task: CmdLine@2
-  inputs:
-    script: 'mv app.py test_app.py'
 - task: UsePythonVersion@0
   inputs:
     versionSpec: '$(python.version)'
@@ -37,8 +34,5 @@ steps:
 
 - script: |
     pip install pytest pytest-azurepipelines
-    pytest
+    pytest app.py
   displayName: 'pytest'
-- task: CmdLine@2
-  inputs:
-    script: 'mv test_app.py app.py'
