@@ -12,6 +12,12 @@ strategy:
   matrix:
     Python38:
       python.version: '3.8'
+    Python39:
+      python.version: '3.9'
+    Python27:
+      python.version: '2.7'
+    Python35:
+      python.version: '3.5'
 
 steps:
 - task: UsePythonVersion@0
@@ -24,10 +30,9 @@ steps:
     pip install -r requirements.txt
   displayName: 'Install dependencies'
   
-- script: |
-    python -m pip install flake8
-    flake8 .
-  displayName: 'Run lint tests'
+
+
+    
 - task: PublishTestResults@2
   condition: succeededOrFailed()
   inputs:
