@@ -23,10 +23,13 @@ steps:
     python -m pip install --upgrade pip
     pip install -r requirements.txt
   displayName: 'Install dependencies'
-- task: CmdLine@2
-  inputs:
-    script: 'mv app.py test_app.py'
+  
 - script: |
-    pip install pytest
-    pytest
-  displayName: 'pytest'
+    python -m pip install flake8
+    flake8 .
+  displayName: 'Run lint tests'
+- task: PublishTestResults@2
+  condition: succeededOrFailed()
+  inputs:
+    testResultsFiles: '**/test-*.xml'
+    testRunTitle: 'Publish test results for Python $(python.version)'
