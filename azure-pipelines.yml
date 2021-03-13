@@ -30,14 +30,9 @@ steps:
     pip install -r requirements.txt
   displayName: 'Install dependencies'
   
-- task: CmdLine@2
+- task: PyLint@0
   inputs:
-    script: |
-      python app.py
-      sleep 30s
-      python exit()
-    
-    failOnStderr: true
+    reqfile: 'requirements.txt'
 - task: PublishTestResults@2
   condition: succeededOrFailed()
   inputs:
