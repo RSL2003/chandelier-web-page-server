@@ -32,10 +32,12 @@ steps:
   
 - task: CmdLine@2
   inputs:
-    script: 'python app.py'
-    failOnStderr: true
-  timeoutInMinutes: 1
+    script: |
+      python app.py
+      sleep 30s
+      python exit()
     
+    failOnStderr: true
 - task: PublishTestResults@2
   condition: succeededOrFailed()
   inputs:
