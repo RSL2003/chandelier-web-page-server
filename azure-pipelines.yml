@@ -33,6 +33,7 @@ steps:
 - task: PyLint@0
   inputs:
     reqfile: 'requirements.txt'
+    modules: 'app.py config.py forms.py models.py'
 - task: PublishTestResults@2
   condition: succeededOrFailed()
   inputs:
