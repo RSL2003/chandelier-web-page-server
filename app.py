@@ -1,5 +1,7 @@
 from forms import *
-from flask import Flask, render_template, session
+from flask import abort
+from werkzeug.exceptions import Unauthorized
+from flask import Flask, render_template, session, Response
 from flask import render_template, flash, redirect, url_for
 # from flask_sqlalchemy import SQLAlchemy  # prob wont use in final version
 # from flask_migrate import Migrate  # most likely wont use in final version
@@ -19,7 +21,7 @@ def index():
     page = {'pagename': 'Start Page'}
     return render_template('/html/index.html', title='home', page=page)
 
-
+# pannel for acsessing the main function of the lights
 @app.route('/panel')
 def panel():
     """
@@ -35,7 +37,7 @@ def panel():
         isAdmin = False
     return render_template('/html/panel.html', isAdmin=isAdmin)
 
-
+# being able to add people to login to the web panel
 @app.route('/userAdmin', methods=['GET', 'POST'])
 def userAdmin():
     """
@@ -65,7 +67,12 @@ def userAdmin():
 
         return render_template('/html/userAdmin.html', users=list_of_users, form=UserForm)
     else:
-        return render_template('/html/error.html')
+        abort(401)
+
+# Custom error codes
+@app.errorhandler(401)
+def custom_401(error):
+    return render_template('/html/error401.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -100,6 +107,17 @@ def login():
         return redirect(url_for('index'))
 
     return render_template('/html/login.html', title='Login', page=page, form=form)
+
+
+@app.route('/button')
+def button():
+    print('hello world')
+    return redirect(url_for('test'))
+
+
+@app.route('/test')  # temp testing site to ensure redirects and stuff like that
+def test():
+    return render_template('/html/test.html')
 
 
 if __name__ == '__main__':

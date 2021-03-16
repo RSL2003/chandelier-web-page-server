@@ -9,7 +9,15 @@
     <title>Panel</title>
 </head>
 <body>
-    <h1><a href="{{ url_for('panel') }}">Error You do not have permission to access this</a></h1>
+	<h1><p>ERROR 401</p></h1>
+	<h1><p>You do not have permission to accsess this</p></h1>
+<button onclick="goBack()">Go Back</button>
+
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>
 </body>
 </html>
 {% endblock %}<!--page content ends no more can be added past here-->
