@@ -107,7 +107,9 @@ def login():
         return redirect(url_for('index'))
 
     return render_template('/html/login.html', title='Login', page=page, form=form)
-
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template('404.html'), 404
 
 @app.route('/button')
 def button():
@@ -122,3 +124,4 @@ def test():
 
 if __name__ == '__main__':
     app.run(debug=True)
+    FLASK_DEBUG = 1
