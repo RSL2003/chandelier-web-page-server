@@ -7,6 +7,7 @@ from flask import render_template, flash, redirect, url_for
 # from flask_migrate import Migrate  # most likely wont use in final version
 from config import Config
 from flask_bootstrap import Bootstrap
+import saicalls
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -113,7 +114,7 @@ def not_found_error(error):
 
 @app.route('/button')
 def button():
-    print('hello world')
+    saicalls.blinkybeinky()
     return redirect(url_for('test'))
 
 
