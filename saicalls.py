@@ -12,3 +12,4 @@ def blinkybeinky():
 
 # this will set the max brightness
 def brightnessset():
+    print('test')
