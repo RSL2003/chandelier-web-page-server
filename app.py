@@ -8,6 +8,7 @@ from flask import render_template, flash, redirect, url_for
 from config import Config
 from flask_bootstrap import Bootstrap
 import saicalls
+import json
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -113,7 +114,13 @@ def not_found_error(error):
 
 @app.route('/options')
 def options():
-    options = ['option1', 'option2', 'option3']
+    options = []
+    with open("templates/jsonsaiprofiles/profiles.json") as f:
+        data = json.load(f)
+    lengthOfdata = len(data ["users"])
+    print(lengthOfdata)
+    for i in range(lengthOfdata):
+        options.append(data["users"][i]["name"])
     return render_template('/html/options.html', options = options)
 
 
