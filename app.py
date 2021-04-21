@@ -1,7 +1,7 @@
 from forms import *
 from flask import abort
 from werkzeug.exceptions import Unauthorized
-from flask import Flask, render_template, session, Response
+from flask import Flask, render_template, session, Response, request
 from flask import render_template, flash, redirect, url_for
 # from flask_sqlalchemy import SQLAlchemy  # prob wont use in final version
 # from flask_migrate import Migrate  # most likely wont use in final version
@@ -112,7 +112,7 @@ def login():
 def not_found_error(error):
     return render_template('404.html'), 404
 
-@app.route('/options')
+@app.route('/options', methods=['GET', 'POST'])
 def options():
     options = []
     with open("templates/jsonsaiprofiles/profiles.json") as f:
@@ -121,6 +121,8 @@ def options():
     print(lengthOfdata)
     for i in range(lengthOfdata):
         options.append(data["users"][i]["name"])
+    select = request.args.get('options')
+    print(select)
     return render_template('/html/options.html', options = options)
 
 

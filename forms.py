@@ -15,3 +15,6 @@ class NewUser(FlaskForm):
     Rank = SelectField(u'Permissions', choices = ['admin', 'user'], validators=[DataRequired()])
     submit = SubmitField('Sign In')
 
+class chooseProfile(FlaskForm):
+    profileName = StringField('Username', validators=[DataRequired()])
+    submit = SubmitField('submit')
