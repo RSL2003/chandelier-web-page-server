@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% extends "html/loggedbase.html" %}<!--adds the navigation bar-->
+{% block content %}<!--where the page content starts-->
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>SAI Dropdown</title>
+	</head>
+	<body>
+		<h1>Options</h1>
+		<p>random shit</p>
+    <select name= options method="GET" action="/">
+    {% for option in options %}
+    <option value= "{{option}}" SELECTED>{{option}}</option>"
+    {% endfor %}
+</select>
+	</body>
+</html>
+{% endblock %}<!--page content ends no more can be added past here-->

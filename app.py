@@ -14,7 +14,6 @@ app.config.from_object(Config)
 app.config.from_object(Config)
 bootstrap = Bootstrap(app)
 
-
 # define your app routes
 @app.route('/')
 @app.route('/index')
@@ -112,10 +111,10 @@ def login():
 def not_found_error(error):
     return render_template('404.html'), 404
 
-@app.route('/button')
-def button():
-    saicalls.blinkybeinky()
-    return redirect(url_for('test'))
+@app.route('/options')
+def options():
+    options = ['option1', 'option2', 'option3']
+    return render_template('/html/options.html', options = options)
 
 
 @app.route('/test')  # temp testing site to ensure redirects and stuff like that
