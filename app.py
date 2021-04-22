@@ -1,3 +1,7 @@
+from flask_wtf import form
+
+import forms
+
 from forms import *
 from flask import abort
 from werkzeug.exceptions import Unauthorized
@@ -115,15 +119,9 @@ def not_found_error(error):
 @app.route('/options', methods=['GET', 'POST'])
 def options():
     options = []
-    with open("templates/jsonsaiprofiles/profiles.json") as f:
-        data = json.load(f)
-    lengthOfdata = len(data ["users"])
-    print(lengthOfdata)
-    for i in range(lengthOfdata):
-        options.append(data["users"][i]["name"])
-    select = request.args.get('options')
+    form = chooseProfile()
     print(select)
-    return render_template('/html/options.html', options = options)
+    return render_template('/html/options.html', options = options, form = form)
 
 
 @app.route('/test')  # temp testing site to ensure redirects and stuff like that

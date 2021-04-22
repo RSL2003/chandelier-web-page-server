@@ -18,3 +18,7 @@ class NewUser(FlaskForm):
 class chooseProfile(FlaskForm):
     profileName = StringField('Username', validators=[DataRequired()])
     submit = SubmitField('submit')
+
+
+class jsonprofileeditor(FlaskForm):
+    print('hello world')
