@@ -119,13 +119,20 @@ def not_found_error(error):
 @app.route('/options', methods=['GET', 'POST'])
 def options():
     options = []
-    form = chooseProfile()
+    with open("templates/jsonsaiprofiles/profiles.json") as f:
+        data = json.load(f)
+    lengthOfdata = len(data ["users"])
+    print(lengthOfdata)
+    for i in range(lengthOfdata):
+        options.append(data["profiles"][i]["name"])
+    select = request.args.get('options')
     print(select)
-    return render_template('/html/options.html', options = options, form = form)
+    return render_template('/html/options.html', options = options)
 
 
 @app.route('/test')  # temp testing site to ensure redirects and stuff like that
 def test():
+    saicalls.reset()
     return render_template('/html/test.html')
 
 
