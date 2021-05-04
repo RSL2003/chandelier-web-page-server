@@ -18,7 +18,10 @@ app = Flask(__name__)
 app.config.from_object(Config)
 app.config.from_object(Config)
 bootstrap = Bootstrap(app)
-
+"""TODO:
+1. Make the hard coded sai profile upload
+2. make a brightness change option
+3. pages more user freindly"""
 # define your app routes
 @app.route('/')
 @app.route('/index')
@@ -30,7 +33,6 @@ def index():
 @app.route('/panel')
 def panel():
     """
-    TODO:
     Create the light control panel
     Control Panel for the light. 
     Shows admin the option to go into user admin panel.
