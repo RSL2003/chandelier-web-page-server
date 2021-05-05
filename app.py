@@ -116,7 +116,7 @@ def login():
     return render_template('/html/login.html', title='Login', page=page, form=form)
 @app.errorhandler(404)
 def not_found_error(error):
-    return render_template('404.html'), 404
+    return render_template('/html/404.html'), 404
 
 @app.route('/options', methods=['GET', 'POST'])
 def options():

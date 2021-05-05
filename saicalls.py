@@ -26,13 +26,15 @@ def sendprof(profile):
 ***
     """
 def setglbbright(level):
-
+    print('hello world')
 def setbrightact1(level):
+    print('hello world')
     #random
 def setbrightact2(level):
-
+    print('hello world')
 def actseq(npoints, nchunks, a1val, a1flat, a2val, a2flat):
-# act sequenes
+# act sequence
+    print('hello world')
 
 def saveprofile():
     ser = serial.Serial('COM6',19200)
