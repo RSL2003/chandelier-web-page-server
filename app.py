@@ -7,8 +7,6 @@ from flask import abort
 from werkzeug.exceptions import Unauthorized
 from flask import Flask, render_template, session, Response, request
 from flask import render_template, flash, redirect, url_for
-# from flask_sqlalchemy import SQLAlchemy  # prob wont use in final version
-# from flask_migrate import Migrate  # most likely wont use in final version
 from config import Config
 from flask_bootstrap import Bootstrap
 import saicalls
@@ -21,7 +19,9 @@ bootstrap = Bootstrap(app)
 """TODO:
 1. Make the hard coded sai profile upload
 2. make a brightness change option
-3. pages more user freindly"""
+3. pages more user friendly"""
+
+
 # define your app routes
 @app.route('/')
 @app.route('/index')
@@ -29,7 +29,8 @@ def index():
     page = {'pagename': 'Start Page'}
     return render_template('/html/index.html', title='home', page=page)
 
-# pannel for acsessing the main function of the lights
+
+# panel for accessing the main function of the lights
 @app.route('/panel')
 def panel():
     """
@@ -38,11 +39,12 @@ def panel():
     Shows admin the option to go into user admin panel.
     """
     # Check if user is admin
-    if (session['rank'] == "admin\n"):
+    if session['rank'] == "admin\n":
         isAdmin = True
     else:
         isAdmin = False
     return render_template('/html/panel.html', isAdmin=isAdmin)
+
 
 # being able to add people to login to the web panel
 @app.route('/userAdmin', methods=['GET', 'POST'])
@@ -51,7 +53,7 @@ def userAdmin():
     User administration panel for admins to see existing users and create new ones
     """
     # yuval forgot to add a check
-    if (session['rank'] == "admin\n"):
+    if session['rank'] == "admin\n":
         # Create a list of all existing users to display to admin
         users = open('users.txt', 'r')
         lines = users.readlines()
@@ -76,7 +78,9 @@ def userAdmin():
     else:
         abort(401)
 
+
 # Custom error codes
+# noinspection PyUnusedLocal
 @app.errorhandler(401)
 def custom_401(error):
     return render_template('/html/error401.html')
@@ -94,6 +98,7 @@ def login():
     user_file = open('users.txt', 'r')
     lines = user_file.readlines()
     page = {'pagename': 'login'}
+    # noinspection PyShadowingNames
     form = LoginForm()
     if form.validate_on_submit():
         # Save the data as a local variable
@@ -102,7 +107,7 @@ def login():
         # Loop through every line in the users file and find if the user exists or not
         for line in lines:
             saved_username, saved_password, saved_rank = line.split(".")
-            if (username == saved_username and password == saved_password):
+            if username == saved_username and password == saved_password:
                 # Save the rank and username of the user into a session item
                 session['rank'] = saved_rank
                 session['username'] = username
@@ -114,22 +119,27 @@ def login():
         return redirect(url_for('index'))
 
     return render_template('/html/login.html', title='Login', page=page, form=form)
+
+
+# noinspection PyUnusedLocal
 @app.errorhandler(404)
 def not_found_error(error):
     return render_template('/html/404.html'), 404
 
+
+# noinspection PyShadowingNames,SpellCheckingInspection
 @app.route('/options', methods=['GET', 'POST'])
 def options():
     options = []
     with open("templates/jsonsaiprofiles/profiles.json") as f:
         data = json.load(f)
-    lengthOfdata = len(data ["users"])
+    lengthOfdata = len(data["users"])
     print(lengthOfdata)
     for i in range(lengthOfdata):
         options.append(data["profiles"][i]["name"])
     select = request.args.get('options')
     print(select)
-    return render_template('/html/options.html', options = options)
+    return render_template('/html/options.html', options=options)
 
 
 @app.route('/test')  # temp testing site to ensure redirects and stuff like that
