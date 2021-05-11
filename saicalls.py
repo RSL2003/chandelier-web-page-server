@@ -7,7 +7,7 @@
 import serial
 
 def trigger():
-    ser = serial.Serial('COM6',19200)
+    ser = serial.Serial('COM3',19200)
     ser.write(b'\xc8')
 def reset():
     ser = serial.Serial('COM6',19200)
@@ -42,3 +42,4 @@ def saveprofile():
 
 
 
+trigger()
