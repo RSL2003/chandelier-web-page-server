@@ -122,9 +122,8 @@ def set_sequence(sequence, x_attenuation):
     # ser.write(b'\x64')
     points = int(len(sequence[0]))
     chunks = int(x_attenuation *100/(points-1))
-    list1 = [100, points, chunks]    
-    list2 = bytearray(list1)
-    print(list2)
+    msgHeader = [100, points, chunks]    
+    
     # TODO
     # need to x64, points, chunks, sequence 
     # ser.write()
@@ -134,12 +133,15 @@ def set_sequence(sequence, x_attenuation):
         for j in range(len(sequence[0])):
             if (sequence[i][j] > 1.5):
                 point = sequence[i][j] - 2
-                messageSequance[i].append(point)
+                messageSequance[i].append(int(point*255))
                 msginterp[i].append(0)
             else:
                 point = sequence[i][j]
-                messageSequance[i].append(point)
+                messageSequance[i].append(int(point*255))
                 msginterp[i].append(1)
+    message = msgHeader + messageSequance[0] + msginterp[0] + messageSequance[1] + msginterp[1]
+    finalMessage = bytearray(message)
+    print(finalMessage)
 
 
 def set_time_random(time_random):
