@@ -14,11 +14,8 @@
         <p>
             {{ form.profileName.label }}<br>
             {{ form.profileName}}<br>
-            {% for error in form.Rank.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
         </p>
-        <p>{{ form.submit() }}</p>
+		<p><input type=submit value="send profile"> </p>
         </form>
 	</body>
 </html>

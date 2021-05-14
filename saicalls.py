@@ -10,7 +10,7 @@ def trigger():
     ser = serial.Serial('COM3',19200)
     ser.write(b'\xc8')
 def reset():
-    ser = serial.Serial('COM6',19200)
+    ser = serial.Serial('COM3',19200)
     ser.write(b'\xd2')
     ser.write(b'\x0a')
     ser.write(b'\x6e')
@@ -120,37 +120,38 @@ def set_sequence(sequence, x_attenuation):
     # ser = serial.Serial('COM3',19200)
     # Convert variable to byte
     # ser.write(b'\x64')
-    points = int(len(sequence[0]))
-    chunks = int(x_attenuation *100/(points-1))
-    msgHeader = [100, points, chunks]    
-    
-    # TODO
-    # need to x64, points, chunks, sequence 
-    # ser.write()
-    msginterp = [[],[]]
-    messageSequance = [[],[]]
-    for i in range(len(sequence)):
-        for j in range(len(sequence[0])):
-            if (sequence[i][j] > 1.5):
-                point = sequence[i][j] - 2
-                messageSequance[i].append(int(point*255))
-                msginterp[i].append(0)
-            else:
-                point = sequence[i][j]
-                messageSequance[i].append(int(point*255))
-                msginterp[i].append(1)
-    message = msgHeader + messageSequance[0] + msginterp[0] + messageSequance[1] + msginterp[1]
-    finalMessage = bytearray(message)
-    print(finalMessage)
-
-
-def set_time_random(time_random):
-    # Connect to the SAI
     ser = serial.Serial('COM3',19200)
-    # Convert variable to byte
-    byte = hex(int(time_random*255))
-    ser.write(b'0x78')
-    ser.write(b'{}'.format(byte))
+    points = int(len(sequence [ 0 ]))
+    chunks = int(x_attenuation * 100 / (points - 1))
+    msgHeader = [ 100, points, chunks ]
+
+    # TODO
+    # need to x64, points, chunks, sequence
+    # ser.write()
+    msginterp = [ [ ], [ ] ]
+    messageSequance = [ [ ], [ ] ]
+    for i in range(len(sequence)):
+        for j in range(len(sequence [ 0 ])):
+            if (sequence [ i ] [ j ] > 1.5):
+                point = sequence [ i ] [ j ] - 2
+                messageSequance [ i ].append(int(point * 255))
+                msginterp [ i ].append(0)
+            else:
+                point = sequence [ i ] [ j ]
+                messageSequance [ i ].append(int(point * 255))
+                msginterp [ i ].append(1)
+    message = msgHeader + messageSequance [ 0 ] + msginterp [ 0 ] + messageSequance [ 1 ] + msginterp [ 1 ]
+    finalMessage = bytearray(message)
+    ser.write(finalMessage)
+
+
+# def set_time_random(time_random):
+#     # Connect to the SAI
+#     ser = serial.Serial('COM3',19200)
+#     # Convert variable to byte
+#     byte = hex(int(time_random*255))
+#     ser.write(b'0x78')
+#     ser.write(b'{}'.format(byte))
 
 # !TODO
 def set_trigger_cooldown(trigger_cooldown):
@@ -222,7 +223,7 @@ def set_y_attenuation(y_attenuation):
     # Convert variable to byte
 
 def saveprofile():
-    ser = serial.Serial('COM6',19200)
+    ser = serial.Serial('COM3',19200)
     ser.write(b'\x67')
 
 

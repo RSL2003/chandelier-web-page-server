@@ -3,13 +3,7 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField, Selec
 from wtforms.validators import DataRequired
 import json
 
-options = []
-with open("templates/jsonsaiprofiles/profiles.json") as f:
-    data = json.load(f)
-lengthOfdata = len(data ["profiles"])
-print(lengthOfdata)
-for i in range(lengthOfdata):
-    options.append(data["profiles"][i]["name"])
+
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
@@ -25,16 +19,11 @@ class NewUser(FlaskForm):
 
 class chooseProfile(FlaskForm):
     options = [ ]
-    with open("templates/jsonsaiprofiles/profiles.json") as f:
+    with open("SAI_PROFILES.json") as f:
         data = json.load(f)
     #  forms.chooseProfile()
-    lengthOfdata = len(data [ "profiles" ])
-    print(lengthOfdata)
-    for i in range(lengthOfdata):
-        options.append(data [ "profiles" ] [ i ] [ "name" ])
+    lengthOfdata = len(data)
+    # print(lengthOfdata)
+    options = data.keys()
     profileName = SelectField('Profile', choices=options, validators=[DataRequired()])
     submit = SubmitField('submit')
-
-
-class jsonprofileeditor(FlaskForm):
-    print('hello world')
