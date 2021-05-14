@@ -34,6 +34,7 @@ def sendprof(profile):
     propagation_delay = data[profile]["propagation_delay"]
     sensor_mirror = data[profile]["sensor_mirror"]
     sequence = data[profile]["sequence"]
+    # print(sequence)
     time_random = data[profile]["time_random"]
     trigger_cooldown = data[profile]["trigger_cooldown"]
     trigger_latch = data[profile]["trigger_latch"]
@@ -44,14 +45,15 @@ def sendprof(profile):
     value_random = data[profile]["value_random"]
     x_attenuation = data[profile]["x_attenuation"]
     y_attenuation = data[profile]["y_attenuation"]
+
     # set_global_max_1(global_max_1)
     # set_global_max_2(global_max_2)
     # set_looping(looping)
     # set_propagation_dampening(propagation_dampening)
     # set_propagation_delay(propagation_delay)
     # set_sensor_mirror(sensor_mirror)
-    # set_sequence(sequence)
-    set_time_random(time_random)
+    set_sequence(sequence, x_attenuation)
+    # set_time_random(time_random)
     # set_trigger_cooldown(trigger_cooldown)
     # set_trigger_latch(trigger_latch)
     # set_trigger_reset(trigger_reset)
@@ -113,11 +115,32 @@ def set_sensor_mirror(sensor_mirror):
     ser.write(b'0x6E')
 
 # !TODO
-def set_sequence(sequence):
+def set_sequence(sequence, x_attenuation):
     # Connect to the SAI
-    ser = serial.Serial('COM3',19200)
+    # ser = serial.Serial('COM3',19200)
     # Convert variable to byte
-    ser.write(b'0x6E')
+    # ser.write(b'\x64')
+    points = int(len(sequence[0]))
+    chunks = int(x_attenuation *100/(points-1))
+    list1 = [100, points, chunks]    
+    list2 = bytearray(list1)
+    print(list2)
+    # TODO
+    # need to x64, points, chunks, sequence 
+    # ser.write()
+    msginterp = [[],[]]
+    messageSequance = [[],[]]
+    for i in range(len(sequence)):
+        for j in range(len(sequence[0])):
+            if (sequence[i][j] > 1.5):
+                point = sequence[i][j] - 2
+                messageSequance[i].append(point)
+                msginterp[i].append(0)
+            else:
+                point = sequence[i][j]
+                messageSequance[i].append(point)
+                msginterp[i].append(1)
+
 
 def set_time_random(time_random):
     # Connect to the SAI
@@ -188,18 +211,17 @@ def set_x_attenuation(x_attenuation):
     # Connect to the SAI
     ser = serial.Serial('COM3',19200)
     # Convert variable to byte
-    ser.write(b'0x6E')
+    chunks = x_attenuation*100/()
 
 # !TODO
 def set_y_attenuation(y_attenuation):
     # Connect to the SAI
     ser = serial.Serial('COM3',19200)
     # Convert variable to byte
-    ser.write(b'0x6E')
 
 def saveprofile():
     ser = serial.Serial('COM6',19200)
     ser.write(b'\x67')
 
 
-sendprof('AS-Angry')
+sendprof('CH -- Excited')
