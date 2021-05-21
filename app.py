@@ -1,7 +1,7 @@
 from flask_wtf import form
-
+from flask import request
 import forms
-
+import time
 from forms import *
 from flask import abort
 from werkzeug.exceptions import Unauthorized
@@ -140,10 +140,16 @@ def options():
     #
     # print(select)
     form = chooseProfile()
-    if form.validate_on_submit():
-        profilename = form.profileName.data
-        saicalls.sendprof(profilename)
-        saicalls.trigger()
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            profilename = form.profileName.data
+            saicalls.sendprof(profilename)
+            time.sleep(10)
+            saicalls.trigger()
+            print('sending profile')
+    # if request.method == 'POST':
+    #         if request.form['saitrigger'] == 'Trigger':
+    #             saicalls.trigger()
 
     return render_template('/html/options.html', form = form, )
 

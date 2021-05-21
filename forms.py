@@ -27,3 +27,6 @@ class chooseProfile(FlaskForm):
     options = data.keys()
     profileName = SelectField('Profile', choices=options, validators=[DataRequired()])
     submit = SubmitField('submit')
+
+class trigger(FlaskForm):
+    submit = SubmitField('Trigger')

@@ -7,13 +7,202 @@ import json
 import serial
 
 def trigger():
-    ser = serial.Serial('COM3',19200)
-    ser.write(b'\xc8')
+        ser = serial.Serial('COM6',19200)
+        ser.write(b'\xc8')
+    # else:
+        # print('port not yet ready')
 def reset():
-    ser = serial.Serial('COM3',19200)
+    ser = serial.Serial('COM6',19200)
     ser.write(b'\xd2')
     ser.write(b'\x0a')
     ser.write(b'\x6e')
+
+def set_global_max_1(global_max_1):
+    # Connect to the SAI
+    ser = serial.Serial('COM6',19200)
+    # Convert variable to byte
+    byte = int(global_max_1*255)
+    a = [110, byte]
+    a = bytearray(a)
+    ser.write(a)
+    ser.close()
+
+def set_global_max_2(global_max_2):
+    # Connect to the SAI
+    ser = serial.Serial('COM6',19200)
+    # Convert variable to byte
+    byte = int(global_max_2*255)
+    a = [ 110, byte ]
+    a = bytearray(a)
+    ser.write(a)
+    ser.close()
+
+def set_looping(looping):
+    # Connect to the SAI
+    ser = serial.Serial('COM6',19200)
+    # Convert variable to byte
+    if looping: 
+        a = [118, 1]
+        a = bytearray(a)
+        ser.write(a)
+        ser.close()
+    else:
+        a = [ 118, 0 ]
+        a = bytearray(a)
+        ser.write(a)
+        ser.close()
+
+def set_propagation_dampening(propagation_dampening):
+    # Connect to the SAI
+    ser = serial.Serial('COM6',19200)
+    # Convert variable to byte
+    byte = int(propagation_dampening*255)
+    a = [106, byte]
+    a =  bytearray(a)
+    ser.write(a)
+    ser.close()
+
+# !TODO
+# def set_propagation_delay(propagation_delay):
+#     # Connect to the SAI
+#     ser = serial.Serial('COM6',19200)
+#     # Convert variable to byte
+#     byte = hex(int(propagation_delay))
+#     ser.write(b'0x6B')
+#     ser.write(b'{}'.format(byte))
+
+# !TODO
+def set_sensor_mirror(sensor_mirror):
+    # Connect to the SAI
+    ser = serial.Serial('COM6',19200)
+    # Convert variable to byte
+    ser.write(b'0x6E')
+    ser.close()
+
+def set_sequence(sequence, x_attenuation):
+    # Connect to the SAI
+    # ser = serial.Serial('COM6',19200)
+    # Convert variable to byte
+    # ser.write(b'\x64')
+    ser = serial.Serial('COM6',19200)
+    points = int(len(sequence [ 0 ]))
+    chunks = int(x_attenuation * 100 / (points - 1))
+    msgHeader = [ 100, points, chunks ]
+    # finished = 1
+    # return finished
+
+    # TODO
+    # need to x64, points, chunks, sequence
+    # ser.write()
+    msginterp = [ [ ], [ ] ]
+    messageSequance = [ [ ], [ ] ]
+    for i in range(len(sequence)):
+        for j in range(len(sequence [ 0 ])):
+            point = sequence [ i ] [ j ]
+            if (point > 1 and point < 1.5):
+                point = 1.0
+            while (sequence [ i ] [ j ] > 1.5):
+                point = point - 2.0
+
+            messageSequance [ i ].append(int(point * 255))
+            msginterp [ i ].append(0)
+            # else:
+            #     point = sequence [ i ] [ j ]
+            #     print(point)
+            #     messageSequance [ i ].append(int(point * 255))
+            #     msginterp [ i ].append(1)
+    message = msgHeader + messageSequance [ 0 ] + msginterp [ 0 ] + messageSequance [ 1 ] + msginterp [ 1 ]
+    finalMessage = bytearray(message)
+    ser.write(finalMessage)
+    ser.close()
+
+
+def set_time_random(time_random):
+    # Connect to the SAI
+    ser = serial.Serial('COM6',19200)
+    # Convert variable to byte
+    byte = int(time_random*255)
+    a = [120, byte]
+    a = bytearray(a)
+    ser.write(a)
+    ser.close()
+
+# !TODO
+def set_trigger_cooldown(trigger_cooldown):
+    # Connect to the SAI
+    ser = serial.Serial('COM6',19200)
+    # Convert variable to byte
+    ser.close()
+
+def set_trigger_latch(trigger_latch):
+    # Connect to the SAI
+    ser = serial.Serial('COM6',19200)
+    # Convert variable to byte
+    if trigger_latch:
+        a = [114, 1]
+        a = bytearray(a)
+        ser.write(a)
+        ser.close()
+    else:
+        a = [ 114, 0 ]
+        a = bytearray(a)
+        ser.write(a)
+        ser.close()
+
+def set_trigger_reset(trigger_reset):
+    # Connect to the SAI
+    ser = serial.Serial('COM6',19200)
+    # Convert variable to byte
+    byte = int(trigger_reset*255)
+    a = [113, byte]
+    a = bytearray(a)
+    ser.write(a)
+    ser.close()
+def set_trigger_threshold(trigger_threshold):
+    # Connect to the SAI
+    ser = serial.Serial('COM6',19200)
+    # Convert variable to byte
+    byte = int(trigger_threshold*255)
+    a = [105, byte]
+    a = bytearray(a)
+    ser.write(a)
+    ser.close()
+
+def set_value_max_1(value_max_1):
+    # Connect to the SAI
+    ser = serial.Serial('COM6',19200)
+    # Convert variable to byte
+    byte = int(value_max_1*255)
+    a = [101, byte]
+    a = bytearray(a)
+    ser.write(a)
+    ser.close()
+
+def set_value_max_2(value_max_2):
+    # Connect to the SAI
+    ser = serial.Serial('COM6',19200)
+    # Convert variable to byte
+    byte = int(value_max_2*255)
+    a = [102, byte]
+    a = bytearray(a)
+    ser.write(a)
+    ser.close()
+
+def set_value_random(value_random):
+    # Connect to the SAI
+    ser = serial.Serial('COM6',19200)
+    # Convert variable to byte
+    byte = int(value_random*255)
+    a = [119, byte]
+    a = bytearray(a)
+    ser.write(a)
+    ser.close()
+
+
+def saveprofile():
+    ser = serial.Serial('COM6',19200)
+    ser.write(b'\x67')
+    ser.close()
 
 def sendprof(profile):
     """
@@ -24,6 +213,7 @@ def sendprof(profile):
     4
     **do a check to make sure it will actualy work without a reset
     """
+    finished = 0
     with open('SAI_PROFILES.json') as f:
         data = json.load(f)
     # Load all variables to local variables
@@ -34,7 +224,6 @@ def sendprof(profile):
     propagation_delay = data[profile]["propagation_delay"]
     sensor_mirror = data[profile]["sensor_mirror"]
     sequence = data[profile]["sequence"]
-    # print(sequence)
     time_random = data[profile]["time_random"]
     trigger_cooldown = data[profile]["trigger_cooldown"]
     trigger_latch = data[profile]["trigger_latch"]
@@ -46,185 +235,20 @@ def sendprof(profile):
     x_attenuation = data[profile]["x_attenuation"]
     y_attenuation = data[profile]["y_attenuation"]
 
-    # set_global_max_1(global_max_1)
-    # set_global_max_2(global_max_2)
-    # set_looping(looping)
-    # set_propagation_dampening(propagation_dampening)
+    set_global_max_1(global_max_1)
+    set_global_max_2(global_max_2)
+    set_looping(looping)
+    set_propagation_dampening(propagation_dampening)
     # set_propagation_delay(propagation_delay)
     # set_sensor_mirror(sensor_mirror)
     set_sequence(sequence, x_attenuation)
-    # set_time_random(time_random)
+    set_time_random(time_random)
     # set_trigger_cooldown(trigger_cooldown)
-    # set_trigger_latch(trigger_latch)
-    # set_trigger_reset(trigger_reset)
-    # set_trigger_threshold(trigger_threshold)
-    # set_value_max_1(value_max_1)
-    # set_value_max_2(value_max_2)
-    # set_value_random(value_random)
-    # set_x_attenuation(x_attenuation)
-    # set_y_attenuation(y_attenuation)
+    set_trigger_latch(trigger_latch)
+    set_trigger_reset(trigger_reset)
+    set_trigger_threshold(trigger_threshold)
+    set_value_max_1(value_max_1)
+    set_value_max_2(value_max_2)
+    set_value_random(value_random)
+    saveprofile()
 
-def set_global_max_1(global_max_1):
-    # Connect to the SAI
-    ser = serial.Serial('COM3',19200)
-    # Convert variable to byte
-    byte = hex(int(global_max_1*255))
-    ser.write(b'0x6E')
-    ser.write(b'{}'.format(byte))
-
-def set_global_max_2(global_max_2):
-    # Connect to the SAI
-    ser = serial.Serial('COM3',19200)
-    # Convert variable to byte
-    byte = hex(int(global_max_2*255))
-    ser.write(b'0x6F')
-    ser.write(b'{}'.format(byte))
-
-def set_looping(looping):
-    # Connect to the SAI
-    ser = serial.Serial('COM3',19200)
-    # Convert variable to byte
-    if looping: 
-        pass
-    else:
-        ser.write(b'0x76')
-        ser.write(b'0')
-
-def set_propagation_dampening(propagation_dampening):
-    # Connect to the SAI
-    ser = serial.Serial('COM3',19200)
-    # Convert variable to byte
-    byte = hex(int(propagation_dampening*255))
-    ser.write(b'0x6A')
-    ser.write(b'{}'.format(byte))
-
-# !TODO
-def set_propagation_delay(propagation_delay):
-    # Connect to the SAI
-    ser = serial.Serial('COM3',19200)
-    # Convert variable to byte
-    byte = hex(int(propagation_delay))
-    ser.write(b'0x6B')
-    ser.write(b'{}'.format(byte))
-
-# !TODO
-def set_sensor_mirror(sensor_mirror):
-    # Connect to the SAI
-    ser = serial.Serial('COM3',19200)
-    # Convert variable to byte
-    ser.write(b'0x6E')
-
-# !TODO
-def set_sequence(sequence, x_attenuation):
-    # Connect to the SAI
-    # ser = serial.Serial('COM3',19200)
-    # Convert variable to byte
-    # ser.write(b'\x64')
-    ser = serial.Serial('COM3',19200)
-    points = int(len(sequence [ 0 ]))
-    chunks = int(x_attenuation * 100 / (points - 1))
-    msgHeader = [ 100, points, chunks ]
-
-    # TODO
-    # need to x64, points, chunks, sequence
-    # ser.write()
-    msginterp = [ [ ], [ ] ]
-    messageSequance = [ [ ], [ ] ]
-    for i in range(len(sequence)):
-        for j in range(len(sequence [ 0 ])):
-            if (sequence [ i ] [ j ] > 1.5):
-                point = sequence [ i ] [ j ] - 2
-                messageSequance [ i ].append(int(point * 255))
-                msginterp [ i ].append(0)
-            else:
-                point = sequence [ i ] [ j ]
-                messageSequance [ i ].append(int(point * 255))
-                msginterp [ i ].append(1)
-    message = msgHeader + messageSequance [ 0 ] + msginterp [ 0 ] + messageSequance [ 1 ] + msginterp [ 1 ]
-    finalMessage = bytearray(message)
-    ser.write(finalMessage)
-
-
-# def set_time_random(time_random):
-#     # Connect to the SAI
-#     ser = serial.Serial('COM3',19200)
-#     # Convert variable to byte
-#     byte = hex(int(time_random*255))
-#     ser.write(b'0x78')
-#     ser.write(b'{}'.format(byte))
-
-# !TODO
-def set_trigger_cooldown(trigger_cooldown):
-    # Connect to the SAI
-    ser = serial.Serial('COM3',19200)
-    # Convert variable to byte
-    ser.write(b'0x70')
-
-def set_trigger_latch(trigger_latch):
-    # Connect to the SAI
-    ser = serial.Serial('COM3',19200)
-    # Convert variable to byte
-    if trigger_latch:
-        pass
-    else:
-        ser.write(b'0x72')
-        ser.write(b'0')
-
-def set_trigger_reset(trigger_reset):
-    # Connect to the SAI
-    ser = serial.Serial('COM3',19200)
-    # Convert variable to byte
-    byte = hex(int(trigger_reset*255))
-    ser.write(b'0x71')
-    ser.write(b'{}'.format(byte))
-
-def set_trigger_threshold(trigger_threshold):
-    # Connect to the SAI
-    ser = serial.Serial('COM3',19200)
-    # Convert variable to byte
-    byte = hex(int(trigger_threshold*255))
-    ser.write(b'0x69')
-    ser.write(b'{}'.format(byte))
-
-def set_value_max_1(value_max_1):
-    # Connect to the SAI
-    ser = serial.Serial('COM3',19200)
-    # Convert variable to byte
-    byte = hex(int(value_max_1*255))
-    ser.write(b'0x65')
-    ser.write(b'{}'.format(byte))
-
-def set_value_max_2(value_max_2):
-    # Connect to the SAI
-    ser = serial.Serial('COM3',19200)
-    # Convert variable to byte
-    byte = hex(int(value_max_2*255))
-    ser.write(b'0x66')
-    ser.write(b'{}'.format(byte))
-
-def set_value_random(value_random):
-    # Connect to the SAI
-    ser = serial.Serial('COM3',19200)
-    # Convert variable to byte
-    byte = hex(int(value_random*255))
-    ser.write(b'0x77')
-    ser.write(b'{}'.format(byte))
-# !TODO
-def set_x_attenuation(x_attenuation):
-    # Connect to the SAI
-    ser = serial.Serial('COM3',19200)
-    # Convert variable to byte
-    chunks = x_attenuation*100/()
-
-# !TODO
-def set_y_attenuation(y_attenuation):
-    # Connect to the SAI
-    ser = serial.Serial('COM3',19200)
-    # Convert variable to byte
-
-def saveprofile():
-    ser = serial.Serial('COM3',19200)
-    ser.write(b'\x67')
-
-
-sendprof('CH -- Excited')
