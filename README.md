@@ -1,4 +1,4 @@
-**LEO Sai Controller Web Interface**
+**LEO Project Web Pannel**
 --
 This interface is designed to allow for the easiest way for a tech to interact with the sai lights in the most efficient way on a constant basis
 
