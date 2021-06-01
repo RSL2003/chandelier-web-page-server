@@ -130,15 +130,6 @@ def not_found_error(error):
 # noinspection PyShadowingNames,SpellCheckingInspection
 @app.route('/options', methods=['GET', 'POST'])
 def options():
-    # options = []
-    # with open("templates/jsonsaiprofiles/profiles.json") as f:
-    # lengthOfdata = len(data["users"])
-    # print(lengthOfdata)
-    # for i in range(lengthOfdata):
-    #     options.append(data["profiles"][i]["name"])
-    # select = request.args.get('options')
-    #
-    # print(select)
     form = chooseProfile()
     if request.method == 'POST':
         if form.validate_on_submit():
@@ -147,11 +138,22 @@ def options():
             time.sleep(10)
             saicalls.trigger()
             print('sending profile')
-    # if request.method == 'POST':
-    #         if request.form['saitrigger'] == 'Trigger':
-    #             saicalls.trigger()
 
-    return render_template('/html/options.html', form = form, )
+    return render_template('/html/options.html', form = form)
+
+@app.route('/reset', methods=['GET', 'POST'])
+def reset():
+    saicalls.reset()
+    form = chooseProfile()
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            profilename = form.profileName.data
+            saicalls.sendprof(profilename)
+            time.sleep(10)
+            saicalls.trigger()
+            print('sending profile')
+
+    return render_template('/html/options.html', form = form)
 
 
 @app.route('/test')  # temp testing site to ensure redirects and stuff like that
