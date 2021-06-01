@@ -5,21 +5,24 @@ import json
 # 3 Send command to the sai
 # all sai commands will be stored as functions in this file
 import serial
-
+port = 'COM6'
 def trigger():
-        ser = serial.Serial('COM6',19200)
-        ser.write(b'\xc8')
+    global port 
+    ser = serial.Serial(port ,19200)
+    ser.write(b'\xc8')
     # else:
         # print('port not yet ready')
 def reset():
-    ser = serial.Serial('COM6',19200)
+    global port 
+    ser = serial.Serial(port ,19200)
     ser.write(b'\xd2')
     ser.write(b'\x0a')
     ser.write(b'\x6e')
 
 def set_global_max_1(global_max_1):
     # Connect to the SAI
-    ser = serial.Serial('COM6',19200)
+    global port 
+    ser = serial.Serial(port ,19200)
     # Convert variable to byte
     byte = int(global_max_1*255)
     a = [110, byte]
@@ -29,7 +32,8 @@ def set_global_max_1(global_max_1):
 
 def set_global_max_2(global_max_2):
     # Connect to the SAI
-    ser = serial.Serial('COM6',19200)
+    global port 
+    ser = serial.Serial(port ,19200)
     # Convert variable to byte
     byte = int(global_max_2*255)
     a = [ 110, byte ]
@@ -39,7 +43,8 @@ def set_global_max_2(global_max_2):
 
 def set_looping(looping):
     # Connect to the SAI
-    ser = serial.Serial('COM6',19200)
+    global port 
+    ser = serial.Serial(port ,19200)
     # Convert variable to byte
     if looping: 
         a = [118, 1]
@@ -54,7 +59,8 @@ def set_looping(looping):
 
 def set_propagation_dampening(propagation_dampening):
     # Connect to the SAI
-    ser = serial.Serial('COM6',19200)
+    global port 
+    ser = serial.Serial(port ,19200)
     # Convert variable to byte
     byte = int(propagation_dampening*255)
     a = [106, byte]
@@ -62,38 +68,13 @@ def set_propagation_dampening(propagation_dampening):
     ser.write(a)
     ser.close()
 
-# !TODO
-# def set_propagation_delay(propagation_delay):
-#     # Connect to the SAI
-#     ser = serial.Serial('COM6',19200)
-#     # Convert variable to byte
-#     byte = hex(int(propagation_delay))
-#     ser.write(b'0x6B')
-#     ser.write(b'{}'.format(byte))
-
-# !TODO
-def set_sensor_mirror(sensor_mirror):
-    # Connect to the SAI
-    ser = serial.Serial('COM6',19200)
-    # Convert variable to byte
-    ser.write(b'0x6E')
-    ser.close()
 
 def set_sequence(sequence, x_attenuation):
-    # Connect to the SAI
-    # ser = serial.Serial('COM6',19200)
-    # Convert variable to byte
-    # ser.write(b'\x64')
-    ser = serial.Serial('COM6',19200)
+    global port 
+    ser = serial.Serial(port ,19200)
     points = int(len(sequence [ 0 ]))
     chunks = int(x_attenuation * 100 / (points - 1))
     msgHeader = [ 100, points, chunks ]
-    # finished = 1
-    # return finished
-
-    # TODO
-    # need to x64, points, chunks, sequence
-    # ser.write()
     msginterp = [ [ ], [ ] ]
     messageSequance = [ [ ], [ ] ]
     for i in range(len(sequence)):
@@ -119,7 +100,8 @@ def set_sequence(sequence, x_attenuation):
 
 def set_time_random(time_random):
     # Connect to the SAI
-    ser = serial.Serial('COM6',19200)
+    global port 
+    ser = serial.Serial(port ,19200)
     # Convert variable to byte
     byte = int(time_random*255)
     a = [120, byte]
@@ -127,16 +109,11 @@ def set_time_random(time_random):
     ser.write(a)
     ser.close()
 
-# !TODO
-def set_trigger_cooldown(trigger_cooldown):
-    # Connect to the SAI
-    ser = serial.Serial('COM6',19200)
-    # Convert variable to byte
-    ser.close()
 
 def set_trigger_latch(trigger_latch):
     # Connect to the SAI
-    ser = serial.Serial('COM6',19200)
+    global port 
+    ser = serial.Serial(port ,19200)
     # Convert variable to byte
     if trigger_latch:
         a = [114, 1]
@@ -151,7 +128,8 @@ def set_trigger_latch(trigger_latch):
 
 def set_trigger_reset(trigger_reset):
     # Connect to the SAI
-    ser = serial.Serial('COM6',19200)
+    global port 
+    ser = serial.Serial(port ,19200)
     # Convert variable to byte
     byte = int(trigger_reset*255)
     a = [113, byte]
@@ -160,7 +138,8 @@ def set_trigger_reset(trigger_reset):
     ser.close()
 def set_trigger_threshold(trigger_threshold):
     # Connect to the SAI
-    ser = serial.Serial('COM6',19200)
+    global port 
+    ser = serial.Serial(port ,19200)
     # Convert variable to byte
     byte = int(trigger_threshold*255)
     a = [105, byte]
@@ -170,7 +149,8 @@ def set_trigger_threshold(trigger_threshold):
 
 def set_value_max_1(value_max_1):
     # Connect to the SAI
-    ser = serial.Serial('COM6',19200)
+    global port 
+    ser = serial.Serial(port ,19200)
     # Convert variable to byte
     byte = int(value_max_1*255)
     a = [101, byte]
@@ -180,7 +160,8 @@ def set_value_max_1(value_max_1):
 
 def set_value_max_2(value_max_2):
     # Connect to the SAI
-    ser = serial.Serial('COM6',19200)
+    global port 
+    ser = serial.Serial(port ,19200)
     # Convert variable to byte
     byte = int(value_max_2*255)
     a = [102, byte]
@@ -190,7 +171,8 @@ def set_value_max_2(value_max_2):
 
 def set_value_random(value_random):
     # Connect to the SAI
-    ser = serial.Serial('COM6',19200)
+    global port 
+    ser = serial.Serial(port ,19200)
     # Convert variable to byte
     byte = int(value_random*255)
     a = [119, byte]
@@ -198,11 +180,12 @@ def set_value_random(value_random):
     ser.write(a)
     ser.close()
 
-
 def saveprofile():
-    ser = serial.Serial('COM6',19200)
+    global port 
+    ser = serial.Serial(port ,19200)
     ser.write(b'\x67')
     ser.close()
+
 
 def sendprof(profile):
     """
@@ -239,11 +222,8 @@ def sendprof(profile):
     set_global_max_2(global_max_2)
     set_looping(looping)
     set_propagation_dampening(propagation_dampening)
-    # set_propagation_delay(propagation_delay)
-    # set_sensor_mirror(sensor_mirror)
     set_sequence(sequence, x_attenuation)
     set_time_random(time_random)
-    # set_trigger_cooldown(trigger_cooldown)
     set_trigger_latch(trigger_latch)
     set_trigger_reset(trigger_reset)
     set_trigger_threshold(trigger_threshold)
@@ -252,3 +232,4 @@ def sendprof(profile):
     set_value_random(value_random)
     saveprofile()
 
+globalIllumination()
