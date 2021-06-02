@@ -10,14 +10,15 @@ def trigger():
     global port 
     ser = serial.Serial(port ,19200)
     ser.write(b'\xc8')
-    # else:
-        # print('port not yet ready')
+    ser.close()
+
 def reset():
     global port 
     ser = serial.Serial(port ,19200)
     ser.write(b'\xd2')
     ser.write(b'\x0a')
     ser.write(b'\x6e')
+    ser.close()
 
 def set_global_max_1(global_max_1):
     # Connect to the SAI
@@ -127,6 +128,7 @@ def set_trigger_latch(trigger_latch):
         ser.close()
 
 def set_trigger_reset(trigger_reset):
+
     # Connect to the SAI
     global port 
     ser = serial.Serial(port ,19200)
@@ -136,6 +138,7 @@ def set_trigger_reset(trigger_reset):
     a = bytearray(a)
     ser.write(a)
     ser.close()
+    
 def set_trigger_threshold(trigger_threshold):
     # Connect to the SAI
     global port 
@@ -232,4 +235,3 @@ def sendprof(profile):
     set_value_random(value_random)
     saveprofile()
 
-globalIllumination()
