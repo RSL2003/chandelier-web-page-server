@@ -1,3 +1,4 @@
+import flask_bootstrap
 from flask_wtf import form
 from flask import request
 import forms
@@ -15,7 +16,7 @@ import json
 app = Flask(__name__)
 app.config.from_object(Config)
 app.config.from_object(Config)
-bootstrap = Bootstrap(app)
+bootstrap = flask_bootstrap.Bootstrap(app)
 """TODO:
 1. Make the hard coded sai profile upload
 2. make a brightness change option
@@ -148,9 +149,16 @@ def reset():
     return redirect('options', code=302)
 
 
-@app.route('/test')  # temp testing site to ensure redirects and stuff like that
+@app.route('/test', methods=['GET', 'POST'])  # temp testing site to ensure redirects and stuff like that
 def test():
-    saicalls.sendprof('AS-Angry')
+    form = testform
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            number = form.number.data
+            print(number+"This is the string")
+            number = int(number)
+            print(number)
+
     return render_template('/html/test.html')
 
 

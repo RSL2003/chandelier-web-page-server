@@ -5,5 +5,13 @@
         <div>
 			<p>This is a test page to show your code is working for redirects</p>
         </div>
+    <p> this is for a number</p>
+        <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.number.label }}<br>
+            {{ form.number(size=32) }}<br>
+            <p>{{ form.submit() }}</p>
+    </form>
 	</h1>
 {% endblock %}<!--page content ends no more can be added past here-->

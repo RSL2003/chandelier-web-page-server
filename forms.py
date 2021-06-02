@@ -10,6 +10,11 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Sign In')
 
+class testform(FlaskForm):
+    number = StringField('Type a number', validators=[DataRequired()])
+    submit = SubmitField('Submit Number')
+
+
 class NewUser(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
