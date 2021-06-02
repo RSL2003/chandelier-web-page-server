@@ -144,16 +144,8 @@ def options():
 @app.route('/reset', methods=['GET', 'POST'])
 def reset():
     saicalls.reset()
-    form = chooseProfile()
-    if request.method == 'POST':
-        if form.validate_on_submit():
-            profilename = form.profileName.data
-            saicalls.sendprof(profilename)
-            time.sleep(10)
-            saicalls.trigger()
-            print('sending profile')
 
-    return render_template('/html/options.html', form = form)
+    return redirect('options', code=302)
 
 
 @app.route('/test')  # temp testing site to ensure redirects and stuff like that
