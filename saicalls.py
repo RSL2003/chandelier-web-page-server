@@ -1,11 +1,7 @@
 import json
-
-# for using serial port
-# 1 define the device being talked to. and the baud rate
-# 3 Send command to the sai
-# all sai commands will be stored as functions in this file
+import time
 import serial
-port = 'COM6'
+port = '/dev/ttyUSB0'
 def trigger():
     global port 
     ser = serial.Serial(port ,19200)
@@ -189,6 +185,24 @@ def saveprofile():
     ser.write(b'\x67')
     ser.close()
 
+def setGlobalIllumination(globalIllumination):
+    global port 
+    ser = serial.Serial(port ,19200)
+    byte = int(globalIllumination*255)
+    globalArray = [109, byte]
+    globalArray = bytearray(globalArray)
+    ser.write(globalArray)
+
+def doIntermission(numFlashes, flashDelay):
+    global port 
+    ser = serial.Serial(port ,19200)
+    ser.write(bytearray([115,0]))
+    for i in range(numFlashes):
+        setGlobalIllumination(0.0)
+        time.sleep(flashDelay)
+        setGlobalIllumination(1.0)
+        time.sleep(flashDelay)
+    ser.write(bytearray([115,255]))   
 
 def sendprof(profile):
     """
@@ -234,4 +248,3 @@ def sendprof(profile):
     set_value_max_2(value_max_2)
     set_value_random(value_random)
     saveprofile()
-
